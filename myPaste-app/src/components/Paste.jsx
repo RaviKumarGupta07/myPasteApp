@@ -39,10 +39,12 @@ const Paste = () => {
       <input
         type="search"
         placeholder="Search pastes..."
-        className="w-full p-3 rounded-lg border-2 border-indigo-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 mb-6 text-base"
+        className="w-full p-3 rounded-lg border-2 border-indigo-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 mb-6 text-gray-800 placeholder-gray-500"
+        style={{ fontFamily: "Mulish, sans-serif", fontSize: "16px" }}
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
+
 
       <div className="grid gap-6">
         {filteredData.map((paste) => (
