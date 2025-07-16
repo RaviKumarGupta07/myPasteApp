@@ -2,6 +2,7 @@
 
 A sleek, responsive paste management web app built using **React**, **Redux**, and **Tailwind CSS**, powered by **Vite** for lightning-fast development.
 
+Paste App is a minimal, modern web application to create, edit, delete, view, and share text pastes. Designed for simplicity and speed, it allows you to manage your notes/snippets with a beautiful UI, search functionality, and seamless user experience powered by React, Redux, and Tailwind CSS.
 ---
 
 ## 🚀 Stack
