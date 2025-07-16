@@ -1,74 +1,74 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
 import { addToPastes, updateToPastes } from '../redux/pasteSlice';
-import { useSelector } from 'react-redux';
 
 const Home = () => {
-    const [title, setTitle] = useState("");
-    const [value, setValue] = useState("");
-    const [searchParams, setSearchParams] = useSearchParams();
-    const pasteId = searchParams.get("pasteId");
-    const dispatch = useDispatch();
-    const allPastes=useSelector((state)=>state.paste.pastes);
+  const [title, setTitle] = useState("");
+  const [value, setValue] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const pasteId = searchParams.get("pasteId");
 
-    useEffect(() => {
-        if (pasteId) {
-            const paste = allPastes.find((p) => p._id === pasteId);
-            if (paste) {
-                setTitle(paste.title);
-                setValue(paste.content); // Correctly use paste.content, not paste.value
-            }
-        }
-    }, [pasteId, allPastes]);
-    const createPaste = function () {
-        const paste = {
-            title: title,
-            content: value,
-            _id: pasteId || Date.now().toString(36),
-            createdAt: new Date().toISOString(),
-        };
-        if (pasteId) {
-            // Update paste
-            dispatch(updateToPastes(paste));
-        } else {
-            // Create paste
-            dispatch(addToPastes(paste));
-        }
+  const dispatch = useDispatch();
+  const allPastes = useSelector((state) => state.paste.pastes);
 
-        // Clear inputs and reset URL
-        setTitle("");
-        setValue("");
-        setSearchParams({}); // Clear query parameters
+  useEffect(() => {
+    if (pasteId) {
+      const paste = allPastes.find((p) => p._id === pasteId);
+      if (paste) {
+        setTitle(paste.title);
+        setValue(paste.content);
+      }
+    }
+  }, [pasteId, allPastes]);
+
+  const createPaste = () => {
+    const paste = {
+      title,
+      content: value,
+      _id: pasteId || Date.now().toString(36),
+      createdAt: new Date().toISOString(),
     };
 
-    return (
-        <div className="flex flex-col items-center p-4">
-            <div className="flex flex-row items-center gap-4 place-content-center">
-                <input
-                    className="p-2 border-2 border-indigo-200 border-b-indigo-500 rounded-xl mt-2 w-80"
-                    type="text"
-                    placeholder="Enter title here"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                />
-                <button
-                    onClick={createPaste}
-                    className="bg-indigo-500 text-white py-2 px-4 rounded-xl hover:bg-indigo-600 transition">
-                    {pasteId ? "Update My Paste" : "Create My Paste"}
-                </button>
-            </div>
-            <div className="mt-4 w-full max-w-4xl">
-                <textarea
-                    className="mt-4 w-full p-4 rounded-2xl border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                    value={value}
-                    placeholder="Enter content here"
-                    onChange={(e) => setValue(e.target.value)}
-                    rows={20}
-                ></textarea>
-            </div>
+    pasteId ? dispatch(updateToPastes(paste)) : dispatch(addToPastes(paste));
+    setTitle("");
+    setValue("");
+    setSearchParams({});
+  };
+
+  return (
+    <div className="min-h-screen px-4 py-10 bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 flex justify-center items-start font-[Mulish,sans-serif]">
+      <div className="w-full max-w-3xl bg-white/60 backdrop-blur-md p-6 rounded-2xl shadow-2xl border border-white/40">
+        <h1 className="text-3xl font-bold text-indigo-700 text-center mb-6">
+          {pasteId ? "Edit Your Paste" : "Create a New Paste"}
+        </h1>
+
+        <div className="flex flex-col md:flex-row md:items-center gap-4 mb-6">
+          <input
+            className="flex-1 p-3 border border-indigo-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 text-gray-800 text-lg font-medium"
+            type="text"
+            placeholder="Enter title here"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+          <button
+            onClick={createPaste}
+            type="button"
+            className="min-w-[200px] h-14 rounded-lg bg-blue-600 text-white text-xl font-semibold tracking-wide text-center transition-all shadow-md hover:shadow-lg focus:ring-2 focus:ring-blue-400 active:bg-blue-700"
+          >
+            {pasteId ? "Update Paste" : "Create Paste"}
+          </button>
         </div>
-    );
+
+        <textarea
+          className="w-full h-96 p-4 border border-gray-300 rounded-xl resize-none shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-800 text-base"
+          value={value}
+          placeholder="Enter content here"
+          onChange={(e) => setValue(e.target.value)}
+        ></textarea>
+      </div>
+    </div>
+  );
 };
 
 export default Home;
