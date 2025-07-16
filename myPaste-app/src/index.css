@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+/* General body styles */
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #282c34;
+  color: white;
+  text-align: center;
+}
+
+/* Headings */
+h1 {
+  font-size: 2.5rem;
+  margin: 1rem 0;
+}
+
+/* Card styling */
+.card {
+  background: #20232a;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Button styling */
+button {
+  font-size: 0.8rem;
+  padding: 0.2rem 0.3rem ;
+  padding-inline: 0.8rem;
+  margin: 0.5rem;
+  color: inherit;
+  border: 2px solid #61dafb;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+button:hover {
+  background: #61dafb;
+  color: #20232a;
+}
+
+a:hover {
+  text-decoration: underline;
+}
